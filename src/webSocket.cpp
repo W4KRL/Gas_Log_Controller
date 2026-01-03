@@ -56,6 +56,15 @@ void broadcastControlState()
     Serial.println("Broadcasted control state: " + payload);
 }
 
+
+// Helper function to update slider state only when changed
+void setRoomTempColor(const char* newState) {
+  if (strcmp(controlState.sliderState, newState) != 0) {
+    controlState.sliderState = newState;
+    broadcastControlState();
+  }
+}
+
 void notifySingleClient(AsyncWebSocketClient *client, const String &message)
 {
 	if (client)

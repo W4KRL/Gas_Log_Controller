@@ -19,14 +19,6 @@ String lastSliderState = "";   // Track slider state changes
 unsigned long lastStatusCheck = 0;
 unsigned long lastTempSensorUpdate = 0;
 
-// Helper function to update slider state only when changed
-void updateSliderState(const char* newState) {
-  if (strcmp(controlState.sliderState, newState) != 0) {
-    controlState.sliderState = newState;
-    broadcastControlState();
-  }
-}
-
 void setup()
 {
   Serial.begin(115200);         // Initialize serial communication at 115200 baud
