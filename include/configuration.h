@@ -68,7 +68,7 @@ static unsigned long STATUS_CHECK_INTERVAL = 5000;		  // Check status every 10 s
 static const unsigned long SENSOR_UPDATE_INTERVAL = 5000; // Update sensor readings every 5 seconds
 static bool METRIC_UNITS = false;						  // Set to true for metric units, false for imperial
 static const int TEMP_RESOLUTION = 11;					  // DS18b20 temperature sensor resolution (9-12 bits)
-static unsigned long timeToOpenValve = 5000;			  // Time to fully open valve in milliseconds
-static unsigned long timeToCloseValve = 5000;			  // Time to fully close valve in milliseconds
+static unsigned long timeToOpenValve = 7000;			  // Time to fully open valve in milliseconds
+static unsigned long timeToCloseValve = 7000;			  // Time to fully close valve in milliseconds
 static const float THERMOSTAT_HYSTERESIS = 0.2;			  // Thermostat hysteresis in Fahrenheit
 #endif													  // CONFIGURATION_H

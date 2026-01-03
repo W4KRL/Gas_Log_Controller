@@ -135,9 +135,9 @@ function processWebSocketMessage(message) {
       updateTemperatureDisplay(data.value);
     }
 
-    // Handle slider state/color updates
+    // Handle room temp background state/color updates
     if (data.type === "sliderState") {
-      updateSliderColor(data.value);
+      setRoomTempBackground(data.value);
     }
 
     // Handle full state sync
@@ -156,9 +156,9 @@ function processWebSocketMessage(message) {
           setpointDisplay.textContent = `${data.setpoint}°F`;
         }
       }
-      // Handle slider color state
+      // Handle room temp background state
       if (data.sliderState) {
-        updateSliderColor(data.sliderState);
+        setRoomTempBackground(data.sliderState);
       }
     }
   } catch (error) {
@@ -209,28 +209,28 @@ function updateTemperatureDisplay(temperature) {
   }
 }
 
-// Function to update slider color based on state
-function updateSliderColor(state) {
-  const tempDisplay = document.querySelector('.temp-display');
-  if (!tempDisplay) return;
+// Function to update room temperature background color based on state
+function setRoomTempBackground(state) {
+  const tempElement = document.getElementById('room-temp');
+  if (!tempElement) return;
 
   // Remove existing color classes
-  tempDisplay.classList.remove('temp-heating', 'temp-idle', 'temp-off');
+  tempElement.classList.remove('temp-heating', 'temp-idle', 'temp-off');
 
   // Add appropriate class based on state
   switch (state.toUpperCase()) {
     case 'HEATING':
-      tempDisplay.classList.add('temp-heating');
+      tempElement.classList.add('temp-heating');
       break;
     case 'IDLE':
-      tempDisplay.classList.add('temp-idle');
+      tempElement.classList.add('temp-idle');
       break;
     case 'OFF':
-      tempDisplay.classList.add('temp-off');
+      tempElement.classList.add('temp-off');
       break;
     default:
       // Default to off state
-      tempDisplay.classList.add('temp-off');
+      tempElement.classList.add('temp-off');
   }
 }
 
@@ -308,3 +308,4 @@ document.addEventListener('DOMContentLoaded', function () {
   sendCommand(JSON.stringify({ type: "mode", value: "AUTOMATIC" }));
 
 });
+
