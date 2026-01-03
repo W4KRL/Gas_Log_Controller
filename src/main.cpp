@@ -1,7 +1,6 @@
 //! Main application file for Smart Thermostat
 //! moved to github 2025.12.30
 
-
 #include <Arduino.h>        // for Arduino core
 #include "ArduinoOTA.h"     // for ArduinoOTA.handle() in loop()
 #include "configuration.h"  // for credentials, hardware connections, and control parameters
@@ -51,10 +50,8 @@ void loop()
 
     if (!isnan(tempC))
     {
-      tempF = tempC * 9.0 / 5.0 + 32.0; // Convert to Fahrenheit
-      Serial.print("Temperature: ");
-      Serial.print(tempF);
-      Serial.println(" °F");
+      tempF = tempC * 9.0 / 5.0 + 32.0; // Convert Celcius to Fahrenheit
+      Serial.printf("Room Temp: %.1f °F\n", tempF);
       char buffer[64];
       snprintf(buffer, sizeof(buffer), "{\"type\":\"temperature\",\"value\":%.1f}", tempF);
       String tempMessage = String(buffer);
@@ -96,25 +93,27 @@ void loop()
       Serial.println("Power ON, AUTO mode.");
       if (controlState.autoMode)
       {
-      Serial.println("Automatic mode active.");
-      if (thermostatHeatCall(tempF, controlState.setpointF))
-      {
-        setRoomTempColor("HEATING");
-        updateWebStatus("Thermostat: Heating");
-        valveOpenRequest(true);
+        Serial.println("Automatic mode active.");
+        if (thermostatHeatCall(tempF, controlState.setpointF))
+        {
+          setRoomTempColor("HEATING");
+          updateWebStatus("Thermostat: Heating");
+          valveOpenRequest(true);
+        }
+        else
+        {
+          setRoomTempColor("IDLE");
+          updateWebStatus("Thermostat: Idle");
+          valveOpenRequest(false);
+        }
       }
-      else
-      {
-        setRoomTempColor("IDLE");
-        updateWebStatus("Thermostat: Idle");
-        valveOpenRequest(false);
-      }
-    }
-    lastStatusCheck = millis();
+      lastStatusCheck = millis();
     }
   }
   else
   {
     valveOpenRequest(false); // power state is OFF, ensure valve is closed
+    setRoomTempColor("OFF");
+    updateWebStatus("System Powered Off");
   }
 }
