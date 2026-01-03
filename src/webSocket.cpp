@@ -13,7 +13,7 @@ ControlState controlState = {
 	.powerOn = false,
 	.autoMode = true,
 	.setpointF = 70,
-	.sliderState = "OFF"}; // Initialize slider state
+	.valveState = "OFF"}; // Initialize slider state
 
 /**
  * @brief Formats the current control state as a JSON string.
@@ -47,7 +47,7 @@ void broadcastControlState()
     doc["power"] = controlState.powerOn ? "on" : "off";
     doc["mode"] = controlState.autoMode ? "automatic" : "manual";
     doc["setpoint"] = controlState.setpointF;
-    doc["sliderState"] = controlState.sliderState;
+    doc["valveState"] = controlState.valveState;
     
     String payload;
     serializeJson(doc, payload);
@@ -59,8 +59,8 @@ void broadcastControlState()
 
 // Helper function to update slider state only when changed
 void setRoomTempColor(const char* newState) {
-  if (strcmp(controlState.sliderState, newState) != 0) {
-    controlState.sliderState = newState;
+  if (strcmp(controlState.valveState, newState) != 0) {
+    controlState.valveState = newState;
     broadcastControlState();
   }
 }

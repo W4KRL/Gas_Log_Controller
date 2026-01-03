@@ -136,7 +136,7 @@ function processWebSocketMessage(message) {
     }
 
     // Handle room temp background state/color updates
-    if (data.type === "sliderState") {
+    if (data.type === "valveState") {
       setRoomTempBackground(data.value);
     }
 
@@ -157,9 +157,9 @@ function processWebSocketMessage(message) {
         }
       }
       // Handle room temp background state
-      if (data.sliderState) {
-        setRoomTempBackground(data.sliderState);
-      }
+if (data.valveState) {
+    setRoomTempBackground(data.valveState);
+}
     }
   } catch (error) {
     console.error("Error parsing WebSocket message:", error);
@@ -211,7 +211,7 @@ function updateTemperatureDisplay(temperature) {
 
 // Function to update room temperature background color based on state
 function setRoomTempBackground(state) {
-  const tempElement = document.getElementById('room-temp');
+  const tempElement = document.querySelector('.temp-display');
   if (!tempElement) return;
 
   // Remove existing color classes
@@ -229,7 +229,6 @@ function setRoomTempBackground(state) {
       tempElement.classList.add('temp-off');
       break;
     default:
-      // Default to off state
       tempElement.classList.add('temp-off');
   }
 }
