@@ -1,0 +1,1 @@
+The Glass_Log_Controller uses an ESP32-C3 and a DRV8877 H-Bridge to control the gas valve of fireplace logs through a websocket uswr interface. It was developed on the PlaformIO extension of VS Code as an Arduino application. The software can be updated by direct USB connection to the ESP32-C3 or wirlessly over a local Wi-Fi connection.
