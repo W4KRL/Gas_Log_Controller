@@ -61,7 +61,7 @@ struct ControlState {
     bool powerOn;
     bool autoMode;
     int setpointF;
-    const char* sliderState; // "HEATING", "IDLE", or "OFF"
+    const char* valveState; // "HEATING", "IDLE", or "OFF"
 };
 
 extern ControlState controlState;
